@@ -6,20 +6,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import java.sql.*;
 
 public class Main extends Application {
 	
 	private static Stage stg;
+	public static Connection conn;
+	
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			stg = primaryStage;
 			stg.setResizable(false);
-			BorderPane root = FXMLLoader.load(getClass().getResource("/View/MainScene.fxml"));
-			Scene scene = new Scene(root);
-			stg.setScene(scene);
+			Parent root = FXMLLoader.load(getClass().getResource("/View/LogIn.fxml"));
+			stg.setScene(new Scene(root));
 			stg.setTitle("Gestore Portineria");
 			stg.show();
 		} catch(Exception e) {
@@ -32,7 +33,10 @@ public class Main extends Application {
 		stg.getScene().setRoot(pane);
 	} 
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+	    conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 		launch();
 	}
 }
+ 
+
